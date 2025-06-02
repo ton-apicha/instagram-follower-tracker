@@ -9,11 +9,18 @@
         <ul>
             {% for account in accounts %}
                 <li>
-                    <strong>{{ account.username }}</strong>
-                    {% if account.profile_url %}(<a href="{{ account.profile_url }}" target="_blank">Profile</a>){% endif %}
+                    {# เปลี่ยนจาก account.username เป็น account.display_username #}
+                    <strong>{{ account.display_username }}</strong>
+                    
+                    {# แสดงลิงก์ไปยังโปรไฟล์ ถ้ามี profile_url หรือ username ที่เป็น URL #}
+                    {% set link_url = account.profile_url or (account.username if ("/" in account.username and "." in account.username) else None) %}
+                    {% if link_url %}
+                        (<a href="{{ link_url }}" target="_blank">Profile</a>)
+                    {% endif %}
                     <br>
                     <small>Added: {{ account.date_added.strftime('%Y-%m-%d %H:%M') }}</small>
                     {% if account.notes %}<p>Notes: {{ account.notes }}</p>{% endif %}
+                    <hr> {# เพิ่มเส้นคั่นระหว่างรายการเพื่อให้อ่านง่ายขึ้น #}
                 </li>
             {% else %}
                 <p>No accounts added yet. <a href="{{ url_for('add_account') }}">Add one now!</a></p>
