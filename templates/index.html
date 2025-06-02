@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h1>Instagram Accounts</h1>
+    <a href="{{ url_for('add_account') }}">Add New Account</a>
+    {% if accounts %}
+        <ul>
+            {% for account in accounts %}
+                <li>
+                    <strong>{{ account.username }}</strong>
+                    {% if account.profile_url %}(<a href="{{ account.profile_url }}" target="_blank">Profile</a>){% endif %}
+                    <br>
+                    <small>Added: {{ account.date_added.strftime('%Y-%m-%d %H:%M') }}</small>
+                    {% if account.notes %}<p>Notes: {{ account.notes }}</p>{% endif %}
+                </li>
+            {% else %}
+                <p>No accounts added yet. <a href="{{ url_for('add_account') }}">Add one now!</a></p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No accounts to display or an error occurred.</p>
+    {% endif %}
+{% endblock %}

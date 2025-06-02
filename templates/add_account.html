@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h1>Add New Instagram Account</h1>
+    <form method="POST" action="{{ url_for('add_account') }}">
+        <div>
+            <label for="username">Instagram Username:</label><br>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <br>
+        <div>
+            <label for="profile_url">Profile URL (Optional):</label><br>
+            <input type="url" id="profile_url" name="profile_url">
+        </div>
+        <br>
+        <div>
+            <label for="notes">Notes (Optional):</label><br>
+            <textarea id="notes" name="notes" rows="3"></textarea>
+        </div>
+        <br>
+        <div>
+            <button type="submit">Add Account</button>
+        </div>
+    </form>
+{% endblock %}
